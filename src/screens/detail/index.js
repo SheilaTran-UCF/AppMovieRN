@@ -7,15 +7,20 @@ import {URL_IMAGE} from '../../helper/constant';
 import {moderateScale, getWidth, getHeight} from '../../helper';
 import HeaderDetail from './components/HeaderDetail';
 import LazyLoadImage from '../../common/LazyLoadImage';
+import {useRoute} from '@react-navigation/native';
 
 const Detail = () => {
   const [detailMove, setDetailMovie] = useState([]);
+
+  const route = useRoute();
+  const {movieDetail} = route.params;
+
   return (
     <View style={styles.container}>
       <HeaderDetail />
       <ScrollView>
         <View>
-          <Text style={styles.text}> A Vigilante </Text>
+          <Text style={styles.text}>{movieDetail.original_title}</Text>
           <Text style={styles.text1}> Release Date: 2019-03 -29 </Text>
           <Text style={styles.text1}> Rating 4.9/10 </Text>
           <Text style={styles.text1}> Genres: Thriller,Drama </Text>
