@@ -22,6 +22,7 @@ const ItemMovie = ({item}) => {
     <TouchableOpacity
       onPress={() => {
         NavigationController.navigate(RoutesName.Detail, {movieDetail: item});
+        // truyen movieDetail sang man hinh Detail , by key = movieDetail & value = item
       }}
       style={{
         margin: 1,

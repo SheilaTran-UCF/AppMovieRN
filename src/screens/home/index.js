@@ -10,12 +10,9 @@ import ItemMovie from './components/ItemMovie';
 import {getListMovies} from '../../services';
 
 const Home = () => {
-  const [listMovies, setListMovies] = useState([]);
+  const [listMovies, setListMovies] = useState([]); //hook cua react, khai bao state
+  //  listMovie : bien , setListMovie : ham
   const [loading, setLoading] = useState(true);
-
-  React.useEffect(() => {
-    getDataMovie();
-  }, []);
 
   const getDataMovie = async () => {
     // getListMovies()
@@ -27,12 +24,16 @@ const Home = () => {
     //     setLoading(false);
     //   });
     const resFromAPI = await getListMovies();
-    console.log({resFromAPI});
+    // console.log({resFromAPI});
     const resJson = await resFromAPI.json();
-    console.log({resJson});
+    // console.log({resJson});
     setListMovies(resJson.results);
     setLoading(false);
   };
+
+  React.useEffect(() => {
+    getDataMovie();
+  }, []);
 
   if (loading === true) {
     return (
@@ -51,6 +52,7 @@ const Home = () => {
           }}
           data={listMovies}
           showsVerticalScrollIndicator={false}
+          // call ItemMovie from ItemMovie file
           renderItem={({item}) => <ItemMovie item={item} />}
         />
       </View>

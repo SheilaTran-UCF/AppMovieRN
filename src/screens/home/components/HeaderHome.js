@@ -6,7 +6,6 @@ import Images from '../../../assets';
 const HeaderHome = () => {
   return (
     <View style={styles.container}>
-    
       <Text style={styles.title}>MovieApp</Text>
       <Image style={styles.searchIcon} source={Images.search} />
       <Image style={styles.filterIcon} source={Images.filter} />
@@ -22,19 +21,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: moderateScale(30),
   },
   searchIcon: {
     height: moderateScale(30),
     width: moderateScale(30),
-    left: moderateScale(110),
+
+    marginLeft: 155,
   },
   filterIcon: {
     height: 30,
     width: 30,
+    marginRight: 20,
   },
   title: {
     fontWeight: 'bold',
-    left: moderateScale(15),
+    // left: moderateScale(15),
+    marginLeft: 15,
     fontSize: moderateScale(20),
   },
 });

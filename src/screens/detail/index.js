@@ -8,42 +8,64 @@ import {moderateScale, getWidth, getHeight} from '../../helper';
 import HeaderDetail from './components/HeaderDetail';
 import LazyLoadImage from '../../common/LazyLoadImage';
 import {useRoute} from '@react-navigation/native';
+import {getDetailMovie} from '../../services';
 
 const Detail = () => {
   const [detailMove, setDetailMovie] = useState([]);
 
+  // useRoute : Hook -> api library
   const route = useRoute();
+  // movieDetail get from ItemMovie file
+  // nhan data tu ItemMovie file -> chay useEffect de goi ham getDataMovieDetail
   const {movieDetail} = route.params;
+  // console.log({movieDetail});
+
+  const getDataMovieDetail = async () => {
+    const resFromAPI = await getDetailMovie(movieDetail.id);
+    const resMovieJson = await resFromAPI.json();
+    // console.log({resMovieJson});
+    setDetailMovie(resMovieJson);
+  };
+
+  React.useEffect(() => {
+    getDataMovieDetail();
+  }, []);
 
   return (
     <View style={styles.container}>
       <HeaderDetail />
       <ScrollView>
         <View>
-          <Text style={styles.text}>{movieDetail.original_title}</Text>
-          <Text style={styles.text1}> Release Date: 2019-03 -29 </Text>
-          <Text style={styles.text1}> Rating 4.9/10 </Text>
-          <Text style={styles.text1}> Genres: Thriller,Drama </Text>
+          {/* <Text style={styles.text}>{movieDetail.original_title}</Text> */}
+          <Text style={styles.text}>{detailMove.original_title}</Text>
+
+          <Text style={styles.text1}>
+            Release Date: {movieDetail.release_date}
+          </Text>
+          <Text style={styles.text1}> Rating {movieDetail.vote_average} </Text>
+          <Text style={styles.text1}> Genres: {movieDetail.genre_ids} </Text>
 
           <View>
             <Text style={styles.text3}>Summary</Text>
           </View>
-          <Text style={styles.text1}>
-            A once-abused woman devotes herself to ridding victim of their
-            domestic abuses while hunting down the husband she must kill to
-            trully be free jf;dlj;lk;lk;ll;klklkllkklkllk;ll;k;lk
-          </Text>
+          <Text style={styles.text1}>{movieDetail.overview}</Text>
 
           <Text style={styles.text4}>Traillers</Text>
           <View>
-            <Image style={styles.searchPic} source={Images.film} />
+            <Image
+              style={styles.searchPic}
+              source={{
+                uri: `${URL_IMAGE}${movieDetail.poster_path}`,
+              }}
+            />
           </View>
 
           <Text style={styles.text4}>Review</Text>
           <Text style={styles.text1}>
-            A once-abused woman devotes herself to ridding victim of their
+            {/* A once-abused woman devotes herself to ridding victim of their
             domestic abuses while hunting down the husband she must kill to
-            trully be free jf;dlj;lk;lk;ll;klklkllkklkllk;ll;k;lk
+            trully be free jf;dlj;lk;lk;ll;klklkllkklkllk;ll;k;lk */}
+            {movieDetail.overview}
           </Text>
         </View>
       </ScrollView>
